@@ -1,0 +1,173 @@
+{% load static %} {% include "header.html" %}
+
+<div class="page-content-wrapper">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="page-title-box">
+          <div class="btn-group float-right">
+            <ol class="breadcrumb hide-phone p-0 m-0">
+              <li class="breadcrumb-item">
+                <a href="{% url 'dashboard' %}">invinsense</a>
+              </li>
+              <li class="breadcrumb-item active">Compare</li>
+            </ol>
+          </div>
+          <h4 class="page-title">Compare</h4>
+        </div>
+      </div>
+    </div>
+    <!-- end page title end breadcrumb -->
+  </div>
+  <!-- container -->
+</div>
+<!-- Page content Wrapper -->
+<div class="row">
+  <div class="col-12">
+    <form method="POST">
+      {% csrf_token %}
+      <div class="col-6">
+        <div class="card-body">
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label">First file</label>
+            <div class="col-sm-9">
+              <select class="form-control" name="first-file">
+                <option>Select</option>
+                {% for file in files %}
+                <option value="{{ file }}">{{ file }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="card-body">
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Second file</label>
+            <div class="col-sm-9">
+              <select class="form-control" name="second-file">
+                <option>Select</option>
+                {% for file in files %}
+                <option value="{{ file }}">{{ file }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <button
+            type="submit"
+            class="btn btn-outline-primary waves-effect waves-light"
+          >
+            Submit
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{% if labels %}
+<div class="row">
+  <div class="col-lg-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="header-title mt-0">Findings by status first file</h5>
+        <div id="pie-chart"></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="header-title mt-0">Findings by severity second file</h5>
+        <div id="pie-chart1"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="header-title mt-0">Findings by severity first file</h5>
+        <div id="donut-chart"></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="header-title mt-0">Findings by severity second file</h5>
+        <div id="donut-chart1"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12 col-sm-12">
+      <div class="card">
+          <div class="card-body table-responsive">
+              <h5 class="header-title">Row Border Bottom Example</h5>
+              
+              <div class="">
+                  <table id="table" class="table dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                      <thead>
+                      <tr>
+                        <th>Service</th>
+                        <th>Status</th>
+                        <th>Severity</th>
+                        <th>Account</th>
+                      </tr>
+                      </thead>
+
+
+                      <tbody>
+                        {% for data in second_file_all_data %}
+                        <tr>
+                          <th>{{ data.ServiceName }}</th>
+                          <td>{{ data.Status }}</td>
+            
+                          {% if data.Severity == "low" %}
+                          <td
+                            tyle="border: 1px solid #ddd; padding: 8px; text-align: center;"
+                          >
+                            <span class="badge badge-pill badge-success">
+                              {{ data.Severity }}</span
+                            >
+                          </td>
+                          {% endif %} {% if data.Severity == "medium" %}
+                          <td
+                            tyle="border: 1px solid #ddd; padding: 8px; text-align: center;"
+                          >
+                            <span class="badge badge-pill badge-info">
+                              {{ data.Severity }}</span
+                            >
+                          </td>
+                          {% endif %} {% if data.Severity == "high" %}
+                          <td
+                            tyle="border: 1px solid #ddd; padding: 8px; text-align: center;"
+                          >
+                            <span class="badge badge-pill badge-warning">
+                              {{ data.Severity }}</span
+                            >
+                          </td>
+                          {% endif %} {% if data.Severity == "critical" %}
+                          <td
+                            tyle="border: 1px solid #ddd; padding: 8px; text-align: center;"
+                          >
+                            <span class="badge badge-pill badge-danger">
+                              {{ data.Severity }}</span
+                            >
+                          </td>
+                          {% endif %}
+                          <td>{{ data.AccountId }}</td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                  </table>
+              </div>           
+          </div>
+      </div>
+  </div>
+</div><!--end row-->
+{% endif %} {% include "footer.html" %}

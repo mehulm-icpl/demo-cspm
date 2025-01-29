@@ -1,0 +1,502 @@
+{% load static %}
+{% include "header.html" %}
+
+<div class="page-content-wrapper">
+
+    <div class="container-fluid">
+
+        <!--============ Mail title ============-->
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-title-box">
+                    <div class="btn-group float-right">
+                        <ol class="breadcrumb hide-phone p-0 m-0">
+                            <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">invinsense</a></li>
+                            <li class="breadcrumb-item active">dashboard</li>
+                        </ol>
+                    </div>
+                    <h4 class="page-title">dashboard</h4>
+                </div>
+            </div>
+        </div>
+        <!-- end page title end breadcrumb -->
+
+    </div><!-- container -->
+
+</div> <!-- Page content Wrapper -->
+
+<div class="row">
+    <div class="col-lg-9">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="card" id="integration">
+                    <a href="{% url 'aws_new_profile' %}">
+                        <div class="card-body">
+                            <div class="icon-contain">
+                                <div class="row">
+                                    <div class="col-2 align-self-center">
+                                        <i class="fas fa-cloud text-gradient-success"></i>
+                                    </div>
+                                    <div class="col-10 text-right">
+                                        <h6 class="mt-0  mb-1"></h6>
+                                        <p class="mb-0 font-12 text-muted"><b>cloud <br> integration</b></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card" id="cloud_accounts">
+                    <a href="{% url 'nuber_of_cloud_profiles' %}">
+                        <div class="card-body justify-content-center">
+                            <div class="icon-contain">
+                                <div class="row">
+                                    <div class="col-2 align-self-center">
+                                        <i class="fas fa-users text-gradient-primary"></i>
+                                    </div>
+                                    <div class="col-10 text-right">
+                                        {% if number_of_profiles %}
+                                        <h6 class="mt-0  mb-1">{{number_of_profiles}}</h6>
+                                        {% else %}
+                                        <h6 class="mt-0  mb-1">0</h6>
+                                        {% endif %}
+                                        <p class="mb-0 font-12 text-muted"><b>cloud accounts</b></p>
+                                        <!--                                        <p class="mb-0 font-12 text-muted">cloud accounts</p>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card" id="scan_history">
+                    <a href="{% url 'scan_history_view' %}">
+                        <div class="card-body">
+                            <div class="icon-contain">
+                                <div class="row">
+                                    <div class="col-2 align-self-center">
+                                        <i class="fas fa-history text-gradient-warning"></i>
+                                    </div>
+                                    <div class="col-10 text-right">
+                                        {% if number_of_scanned_files %}
+                                        <h6 class="mt-0  mb-1">{{number_of_scanned_files}}</h6>
+                                        {% else %}
+                                        <h6 class="mt-0  mb-1">0</h6>
+                                        {% endif %}
+                                        <p class="mb-0 font-12 text-muted"><b>scan history</b></p>
+                                        <!--                                        <p class="mb-0 font-12 text-muted"></p>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card" id="report_file">
+                    <div class="card-body">
+                        <div class="icon-contain">
+                            <div class="row">
+                                <div class="col-2 align-self-center">
+                                    <i class="fas fa-file-pdf text-gradient-danger"></i>
+                                </div>
+                                <div class="col-10 text-right">
+                                    <h6 class="mt-0  mb-1"></h6>
+                                        <p class="mb-0 font-12 text-muted"><b>report </br> files</b></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        {% if not_integrated %}
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    
+                        <div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                            <strong>Note!</strong> - Kindly first integrate your cloud.
+                        </div>
+                    
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% if empty_history %}
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    
+                        <div class="alert alert-warning alert-dismissible fade show mb-0" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                            <strong>Well done!</strong></br> - You integrated your profile.</br>
+                            - Now you can perform your first scan.
+                        </div>
+                    
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        
+        <!-- for aws cloud scan -->
+        {% if not not_integrated and not empty_history %}
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="header-title mt-0">Findings by severity</h5>
+                        <p class="text-muted mb-4 font-13">The doughnut chart below provides a comprehensive overview of the severity distribution in scan report.
+                        </p>
+                        <div id="donut-chart"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="header-title mt-0">Findings by status</h5>
+                        <p class="text-muted mb-4 font-13">The pie chart below provides a comprehensive overview of the status distribution in scan report.
+                        </p>
+                        <div id="pie-chart"></div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="col-lg-4">
+                <div class="row">
+                    <div class="col-md">
+                        <a href = "{% url "pass-finding" %}">
+                            <div class="card bg-gradient2 text-white">
+                                <div class="card-body">
+                                    <h5 class=" mdi mdi-checkbox-marked-circle mr-2 header-title mt-0 text-center text-white">
+                                        Pass</h5>
+                                    <h4 class="text-center text-white">{{pass}}</h4>
+                                    {% if pass > next_pass_cnt %}
+                                    <p class="text-center text-white">+{{next_pass_cnt}}</p>
+                                    {% else %}
+                                    <p class="text-center text-white">-{{next_pass_cnt}}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md">
+                        <a href = "{% url "fail-finding" %}">
+                            <div class="card bg-gradient1 text-white">
+                                <div class="card-body">
+                                    <h5 class=" mdi mdi-close-circle mr-2 header-title mt-0 text-center text-white">
+                                        Fail</h5>
+                                    <h4 class="text-center text-white">{{fail}}</h4>
+                                    {% if fail > next_fail_cnt %}
+                                    <p class="text-center text-white">+{{next_fail_cnt}}</p>
+                                    {% else %}
+                                    <p class="text-center text-white">-{{next_fail_cnt}}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md">
+                        <a href = "{% url "info-finding" %}">
+                            <div class="card bg-gradient3 text-white">
+                                <div class="card-body">
+                                    <h5 class=" mdi mdi-information mr-2 header-title mt-0 text-center text-white">Info</h5>
+                                    <h4 class="text-center text-white">{{info}}</h4>
+                                    
+                                    {% if info > next_info_cnt %}
+                                    <p class="text-center text-white">+{{next_info_cnt}}</p>
+                                    {% else %}
+                                    <p class="text-center text-white">-{{next_info_cnt}}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md">
+                        <a href = "{% url "findings" %}">
+                            <div class="card bg-gradient4 text-white">
+                                <div class="card-body">
+                                    <h5 class=" mdi mdi-album mr-2 header-title mt-0 text-center text-white">Total</h5>
+                                    <h4 class="text-center text-white">{{total}}</h4>
+                                    
+                                    {% if total > next_total %}
+                                    <p class="text-center text-white">+{{next_total}}</p>
+                                    {% else %}
+                                    <p class="text-center text-white">-{{next_total}}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div> <!-- important div -->
+        
+    
+    <div class="col-lg-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="header-title mb-4 mt-0">Latest scan summury</h5>
+                <p class="text-muted mb-4 font-13">The score meter below illustrates the overall assessment of the scan, emphasizing the pass percentage of various status categories.
+                </p>
+                <div class="row d-flex justify-content-center">
+                    <!---------------------------- SCORE MEATER  ------------------------>
+
+                    <div class="progress blue">
+                        <span class="progress-left"><span class="progress-bar"></span>
+                        </span>
+                        <span class="progress-right">
+                        <span class="progress-bar"></span>
+                        </span>
+                        {% if html_meter %}
+                        <div class="progress-value">{{html_meter}}%</div>
+                        {% else %}
+                        <div class="progress-value">0%</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        {% if not not_integrated and not empty_history %}
+                
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="header-title mb-4 mt-0">Severity statistics</h5>
+                        <div class="row mb-3">
+                            <div class="col-sm-6">
+                                <a href="{% url "low-finding" %}">
+                                    <p class="mb-0 text-muted font-13"><i class="mdi mdi-album mr-2 text-success"></i><b>Low {{low}} </b>
+                                    </p>
+                                </a>
+                            </div>
+                            <div class="col-sm-6">
+                                <a href="{% url "medium-finding" %}">
+                                    <p class="mb-0 text-muted font-13"><i class="mdi mdi-album mr-2 text-primary"></i><b>Medium
+                                        {{medium}}</b>
+                                    </p>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-6">
+                                <a href="{% url "high-finding" %}">
+                                    <p class="mb-0 text-muted font-13"><i class="mdi mdi-album mr-2 text-warning"></i><b>High {{high}}</b>
+                                    </p>
+                                </a>
+                            </div>
+                            <div class="col-sm-6">
+                                <a href="{% url "critical-finding" %}">
+                                    <p class="mb-0 text-muted font-13"><i class="mdi mdi-album mr-2 text-danger"></i><b>Critical
+                                        {{critical}}</b>
+                                    </p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                {% endif %}
+    </div>
+</div>
+
+<!------------------------ service bar chart ---------------->
+ {% if not not_integrated and not empty_history%}
+<div class="row">
+    <div class="col lg-9">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="header-title mt-0">Scan service breakdown</h5>
+                <p class="text-muted mb-4 font-13">The breakdown below offers a detailed analysis of the scan results, categorizing findings based on the respective services they pertain to.
+                </p>
+                    {{ chart_div_service|safe }}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!------------------------ reagian bar chart------------------>
+
+<div class="row">
+    <div class="col lg-9">
+        <div class="card">
+            <div class="card-body">
+                
+                    <h5 class="header-title mt-0">Scan region breakdown</h5>
+                    <p class="text-muted mb-4 font-13">The breakdown below presents a comprehensive analysis of the scan results, categorizing findings based on the respective regions they are associated with.
+                    </p>
+                    {{ chart_div|safe }}
+               
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="mt-0 header-title">MOST COMMON FAILURES – top 10 with most failures</h4>
+                <div class="card-body boxscroll">
+                
+                
+                {% if most_common_problem %}
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead class="thead-default">
+                        <tr>
+                            <th>#</th>
+                            <th>Issue</th>
+                            <th>Count</th>
+                            <th>Severity</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for index, problem in most_common_problem %}
+                        <tr>
+                            <th scope="row">{{ index }}</th>
+                            <td>{{problem.CheckTitle}}</td>
+                            <td>{{problem.Count}}</td>
+                            
+                            {% if problem.Severity == "low" %}
+                            <td tyle="border: 1px solid #ddd; padding: 8px; text-align: center;"><span class="badge badge-pill badge-success">
+                                {{ problem.Severity }}</span></td>
+                                {% endif %}
+                            {% if problem.Severity == "medium" %}
+                            <td tyle="border: 1px solid #ddd; padding: 8px; text-align: center;"><span class="badge badge-pill badge-info">
+                                {{ problem.Severity }}</span></td>
+                                {% endif %}
+                            {% if problem.Severity == "high" %}
+                            <td tyle="border: 1px solid #ddd; padding: 8px; text-align: center;"><span class="badge badge-pill badge-warning">
+                                {{ problem.Severity }}</span></td>
+                                {% endif %}
+                            {% if problem.Severity == "critical" %}
+                            <td tyle="border: 1px solid #ddd; padding: 8px; text-align: center;"><span class="badge badge-pill badge-danger">
+                                {{ problem.Severity }}</span></td>
+                                {% endif %}
+                      
+
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% endif %}
+            </div> 
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
+
+                <h4 class="mt-0 header-title">Region Map</h4>
+                <p class="text-muted mb-3 font-13">The region map provides a visual representation of the geographic distribution of findings within the scan report.</p>
+
+                <div id="world-map-markers" style="height: 476px"></div>
+
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div> <!-- end row -->
+{% endif %}
+
+</div> <!-- content -->
+
+<script>
+    // JavaScript code to hide the element
+    document.querySelector('.modebar-group').style.display = 'none';
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Select the elements with the specified classes
+        var elementsToHide = document.querySelectorAll('.plotlyjsicon');
+
+        // Loop through the selected elements and hide them
+        elementsToHide.forEach(function(element) {
+            element.style.display = 'none';
+        });
+    });
+</script>
+
+<style>
+    .card {
+        transition: transform 0.3s; /* Add transition for smooth effect */
+        border-radius: 10px;
+
+    }
+    
+    .card:hover {
+        transform: translateY(-5px); /* Move the card up slightly on hover */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Add shadow on hover */
+    }
+</style>
+
+{% if not_integrated %}
+<script>
+    var cloud_accounts = document.getElementById("cloud_accounts");
+    cloud_accounts.onclick = function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        alert("Please First configure your account!")    
+    }
+
+    var scan_history = document.getElementById("scan_history");
+    scan_history.onclick = function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        alert("Please First configure your account!")    
+    }
+
+    var report_file = document.getElementById("report_file");
+    report_file.onclick = function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        alert("Please First configure your account!")    
+    }
+
+</script>
+{% endif %}
+
+{% if empty_history %}
+<script>
+    var scan_history = document.getElementById("scan_history");
+    scan_history.onclick = function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        alert("Please First scan your account!")    
+    }
+
+    var report_file = document.getElementById("report_file");
+    report_file.onclick = function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        alert("Please First scan your account!")    
+    }
+
+</script>
+{% endif %}
+
+
+<!-- Main content of the current template -->
+
+
+{% include "footer.html" %}

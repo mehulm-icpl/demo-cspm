@@ -1,0 +1,76 @@
+{% load static %}
+{% include "header.html" %}
+
+<div class="page-content-wrapper ">
+
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-title-box">
+                    <div class="btn-group float-right">
+                        <ol class="breadcrumb hide-phone p-0 m-0">
+                            <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">invinsense</a></li>
+                            <li class="breadcrumb-item active">cloud accounts</li>
+                        </ol>
+                    </div>
+                    <h4 class="page-title">cloud accounts</h4>
+                </div>
+            </div>
+        </div>
+        <!-- end page title end breadcrumb -->
+
+    </div><!-- container -->
+
+</div> <!-- Page content Wrapper -->
+
+<!-- ------------------------------------------------------ start ---------------------------------------------------- -->
+
+<div class="row">
+    {% for profile in profile_data %}
+    
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="d-sm-flex align-self-center">
+                        <img src="{% static 'images/aws-svgrepo-com.svg' %}" alt=""
+                            class="d-flex rounded align-self-start mr-2 mt-2" alt="Generic placeholder image" height="64">
+                        <div class="media-body ml-4 align-self-center">
+                            <p class="mb-0">{{profile.profilename}}</p>
+                            <span class="font-12 text-black">{{profile.id}}</span>
+                            <input type="hidden" name="account-id" value="{{profile.profilename}}">
+                            <div class="media-body mt-2">
+                                <button type="submit" class="btn btn-outline-success waves-effect waves-light"
+                                    ><i class="mdi mdi-security mr-2"></i>Scan your account</button>
+                                
+                            </div>
+                            
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    {% endfor %} 
+</div>
+
+
+<!-- ------------------------------------------------------ end ---------------------------------------------------- -->
+</div> <!-- content -->
+<style>
+    .card {
+        transition: transform 0.3s; /* Add transition for smooth effect */
+        border-radius: 10px;
+
+    }
+    
+    .card:hover {
+        transform: translateY(-5px); /* Move the card up slightly on hover */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Add shadow on hover */
+    }
+</style>
+
+{% include "footer.html" %}

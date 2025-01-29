@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    {% load static %}
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+        <title>Invensense CSPM</title>
+        <meta content="Admin Dashboard" name="description" />
+        <meta content="Mannatthemes" name="author" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+        <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" sizes="16x16">
+
+        <link href="{% static 'css/bootstrap.min.css'%}" rel="stylesheet" type="text/css">
+        <link href="{% static 'css/icons.css'%}" rel="stylesheet" type="text/css">
+        <link href="{% static 'css/style.css'%}" rel="stylesheet" type="text/css">
+
+        <style>
+            .service_card {
+                margin: 7.5% auto;
+                max-width: 1360px;
+                position: relative;
+            }
+            
+            .service-card {
+                transition: transform 0.3s; /* Add transition for smooth effect */
+                background-color: #f2f2f2;
+                border-radius: 10px;
+
+            }
+            
+            .service-card:hover {
+                transform: translateY(-5px); /* Move the card up slightly on hover */
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 1.5); /* Add shadow on hover */
+            }
+        </style>
+
+    </head>
+
+
+    <body class="fixed-left">
+
+        <div class="accountbg"></div>
+        <div class="service_card">
+
+            <div class="card">
+                <div class="card-body">
+
+                    <div class="text-center m-b-15">
+                        <a href="index.html" class="logo logo-admin"><img src="{% static 'images/logo1.svg' %}" height="44" alt="logo"></a>
+                    </div>
+
+                    <div class="p-3">
+                        <h4 class="page-title">Services</h4>
+
+                        <div class="p-3" style="padding-left: 20px; margin-top: 20px;">
+                            <h6 class="page-title">Cloud services</h6>
+                            <div class="row">
+                                <!--AWS-->
+                                <div class="col-3">
+                                    <div class="service-card">
+                                        <div class="card-body"> <!-- Set background color to off-white -->
+                                            <!-- Content of the inner card -->
+                                            <a href="{% url "dashboard" %}">
+                                                <div class="row align-items-center">
+                                                    <div class="col-4">
+                                                        <img src="{% static 'images/aws-svgrepo-com.svg' %}" alt="AWS Logo" class="thumb-md rounded-circle">
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <p class="mb-0">Amazon Web Services</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Azure-->
+                                <div class="col-3">
+                                    <div class="service-card">
+                                        <div class="card-body"> <!-- Set background color to off-white -->
+                                            <!-- Content of the inner card -->
+                                            <a href="{% url "azure-dashboard" %}">
+                                                <div class="row align-items-center">
+                                                    <div class="col-4">
+                                                        <img src="{% static 'images/azure.svg' %}" alt="AWS Logo" class="thumb-md rounded-circle">
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <p class="mb-0">Microsof Azure</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--GCP-->
+                                <div class="col-3">
+                                    <div class="service-card">
+                                        <div class="card-body"> <!-- Set background color to off-white -->
+                                            <!-- Content of the inner card -->
+                                            <a href="{% url "gcp-dashboard" %}">
+                                                <div class="row align-items-center">
+                                                    <div class="col-4">
+                                                        <img src="{% static 'images/gcp.svg' %}" alt="AWS Logo" class="thumb-md rounded-circle">
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <p class="mb-0">Google Cloud</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Alibaba-->
+                                <div class="col-3">
+                                    <div class="service-card">
+                                        <div class="card-body"> <!-- Set background color to off-white -->
+                                            <!-- Content of the inner card -->
+                                            <a href="{% url "alibaba_dashboard" %}">
+                                                <div class="row align-items-center">
+                                                    <div class="col-4">
+                                                        <img src="{% static 'images/alibaba.png' %}" alt="AWS Logo" class="thumb-md rounded-circle">
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <p class="mb-0">Alibaba Cloud</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <h6 class="page-title mt-4">Git Scan</h6>
+                            <div class="row">
+                                <div class="col-3">
+                                    <div class="service-card">
+                                        <div class="card-body"> <!-- Set background color to off-white -->
+                                            <!-- Content of the inner card -->
+                                            <a href="{% url "git_dashboard" %}">
+                                                <div class="row align-items-center">
+                                                    <div class="col-4">
+                                                        <img src="{% static 'images/git.png' %}" alt="AWS Logo" class="thumb-md rounded-circle">
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <p class="mb-0">Git Repository Scan</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <h6 class="page-title mt-4">Web Scan</h6>
+                            <div class="row">
+                                <div class="col-3">
+                                    <div class="service-card">
+                                        <div class="card-body"> <!-- Set background color to off-white -->
+                                            <!-- Content of the inner card -->
+                                            <div class="row align-items-center">
+                                                <div class="col-4">
+                                                    <img src="{% static 'images/web.png' %}" alt="AWS Logo" class="thumb-md rounded-circle">
+                                                </div>
+                                                <div class="col-8">
+                                                    <p class="mb-0">Web site Scan</p>
+                                                </div>
+                                            </div>
+                                            
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        {% if invalid %}
+        <script>
+            window.onload = function() {
+                alert("Enter the correct username and password");
+            };
+        </script>
+        {% endif %}
+
+
+        <!-- jQuery  -->
+        <script src="{% static 'js/jquery.min.js'%}"></script>
+        <script src="{% static 'js/popper.min.js'%}"></script>
+        <script src="{% static 'js/bootstrap.min.js'%}"></script>
+        <script src="{% static 'js/modernizr.min.js'%}"></script>
+        <script src="{% static 'js/detect.js'%}"></script>
+        <script src="{% static 'js/fastclick.js'%}"></script>
+        <script src="{% static 'js/jquery.slimscroll.js'%}"></script>
+        <script src="{% static 'js/jquery.blockUI.js'%}"></script>
+        <script src="{% static 'js/waves.js'%}"></script>
+        <script src="{% static 'js/jquery.nicescroll.js'%}"></script>
+        <script src="{% static 'js/jquery.scrollTo.min.js'%}"></script>
+
+        <!-- App js -->
+        <script src="{% static 'js/app.js'%}"></script>
+
+    </body>
+</html>

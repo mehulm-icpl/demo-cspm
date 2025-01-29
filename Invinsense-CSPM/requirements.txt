@@ -1,0 +1,9 @@
+Django
+boto3
+PyPDF2
+pandas
+plotly
+Pygments
+GitPython
+Pillow
+prowler==3.15.0

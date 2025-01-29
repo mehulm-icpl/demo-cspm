@@ -1,0 +1,326 @@
+{% load static %}
+{% include "header.html" %}
+
+<div class="page-content-wrapper">
+
+    <div class="container-fluid">
+
+        <!--============ Mail title ============-->
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-title-box">
+                    <div class="btn-group float-right">
+                        <ol class="breadcrumb hide-phone p-0 m-0">
+                            <li class="breadcrumb-item"><a href="{% url 'alibaba_dashboard' %}">invinsense</a></li>
+                            <li class="breadcrumb-item active">dashboard</li>
+                        </ol>
+                    </div>
+                    <h4 class="page-title">dashboard</h4>
+                </div>
+            </div>
+        </div>
+        <!-- end page title end breadcrumb -->
+
+    </div><!-- container -->
+
+</div> <!-- Page content Wrapper -->
+
+<div class="row">
+    <div class="col-lg-9">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="card">
+                    <a href="{% url 'aws_new_profile' %}">
+                        <div class="card-body">
+                            <div class="icon-contain">
+                                <div class="row">
+                                    <div class="col-2 align-self-center">
+                                        <i class="fas fa-cloud text-gradient-success"></i>
+                                    </div>
+                                    <div class="col-10 text-right">
+                                        
+                                        <h6 class="mt-0  mb-1"><b>cloud</b></h6>
+                                        <p class="mb-0 font-12 text-muted"><b>integration</b></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card">
+                    <a href="{% url 'azure-profiles' %}">
+                        <div class="card-body justify-content-center">
+                            <div class="icon-contain">
+                                <div class="row">
+                                    <div class="col-2 align-self-center">
+                                        <i class="fas fa-users text-gradient-primary"></i>
+                                    </div>
+                                    <div class="col-10 text-right">
+                                        {% if number_of_profiles %}
+                                        <h6 class="mt-0  mb-1">{{number_of_profiles}}</h6>
+                                        {% else %}
+                                        <h6 class="mt-0  mb-1"><b>cloud</b></h6>
+                                        {% endif %}
+                                        <p class="mb-0 font-12 text-muted"><b>accounts</b></p>
+                                        <!--                                        <p class="mb-0 font-12 text-muted">cloud accounts</p>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card">
+                    <a href="{% url 'scan_history_view' %}">
+                        <div class="card-body">
+                            <div class="icon-contain">
+                                <div class="row">
+                                    <div class="col-2 align-self-center">
+                                        <i class="fas fa-history text-gradient-warning"></i>
+                                    </div>
+                                    <div class="col-10 text-right">
+                                        {% if number_of_scanned_files %}
+                                        <h6 class="mt-0  mb-1">{{number_of_scanned_files}}</h6>
+                                        {% else %}
+                                        <h6 class="mt-0  mb-1">0</h6>
+                                        {% endif %}
+                                        <p class="mb-0 font-12 text-muted"><b>scan history</b></p>
+                                        <!--                                        <p class="mb-0 font-12 text-muted"></p>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card ">
+                    <div class="card-body">
+                        <div class="icon-contain">
+                            <div class="row">
+                                <div class="col-2 align-self-center">
+                                    <i class="fas fa-file-pdf text-gradient-danger"></i>
+                                </div>
+                                <div class="col-10 text-right">
+                                    <h6 class="mt-0  mb-1"></h6>
+                                        <p class="mb-0 font-12 text-muted"><b>report </br> files</b></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if not_integrated %}
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    
+                        <div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                            <strong>Note!</strong> - Kindly first integrate your cloud.
+                        </div>
+                    
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% if empty_history %}
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    
+                        <div class="alert alert-warning alert-dismissible fade show mb-0" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                            <strong>Well done!</strong></br> - You integrated your profile.</br>
+                            - Now you can perform your first scan.
+                        </div>
+                    
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% if not not_integrated and not empty_history %}
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="container">
+                                    <h5 class="header-title mt-0">Scan service breakdown</h5>
+                                    <p class="text-muted mb-4 font-13">The breakdown below offers a detailed analysis of the scan results, categorizing findings based on the respective services they pertain to.
+                                    </p>
+                                    {{ chart_div_azure_services|safe }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    <div class="col-lg-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="header-title mb-4 mt-0">Latest scan summury</h5>
+                <p class="text-muted mb-4 font-13">The score meter below illustrates the overall assessment of the scan, emphasizing the pass percentage of various categories.
+                </p>
+                <div class="row d-flex justify-content-center">
+                    <!---------------------------- SCORE MEATER  ------------------------>
+
+                    <div class="progress blue">
+                        <span class="progress-left"><span class="progress-bar"></span>
+                        </span>
+                        <span class="progress-right">
+                        <span class="progress-bar"></span>
+                        </span>
+                        {% if html_meter %}
+                        <div class="progress-value">{{html_meter}}%</div>
+                        {% else %}
+                        <div class="progress-value">0%</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card bg-gradient2 text-white">
+                    <a href = "{% url "findings-good" %}">
+                        <div class="card-body">
+                            <h5 class=" mdi mdi-checkbox-marked-circle mr-2 header-title mt-0 text-center text-white">
+                                Good</h5>
+                            <h4 class="text-center text-white">{{good}}</h4>
+                            {% if good > next_pass_cnt %}
+                            <p class="text-center text-white">+0</p>
+                            {% else %}
+                            <p class="text-center text-white">-0</p>
+                            {% endif %}
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card bg-gradient3 text-white">
+                    <a href = "{% url "findings-warning" %}">
+                        <div class="card-body">
+                            <h5 class=" mdi mdi-information mr-2 header-title mt-0 text-center text-white">
+                                Warning</h5>
+                            <h4 class="text-center text-white">{{warning}}</h4>
+                            {% if warning > next_fail_cnt %}
+                            <p class="text-center text-white">+0</p>
+                            {% else %}
+                            <p class="text-center text-white">-0</p>
+                            {% endif %}
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card bg-gradient1 text-white">
+                    <a href = "{% url "findings-danger" %}">
+                        <div class="card-body">
+                            <h5 class=" mdi mdi-close-circle mr-2 header-title mt-0 text-center text-white">
+                                Danger</h5>
+                            <h4 class="text-center text-white">{{danger}}</h4>
+                            {% if danger > next_fail_cnt %}
+                            <p class="text-center text-white">+0</p>
+                            {% else %}
+                            <p class="text-center text-white">-0</p>
+                            {% endif %}
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card bg-gradient4 text-white">
+                    <a href = "{% url "azure-findings" %}">
+                        <div class="card-body">
+                            <h5 class="  mdi mdi-album mr-2 header-title mt-0 text-center text-white">
+                                Total</h5>
+                            <h4 class="text-center text-white">{{total}}</h4>
+                            {% if total > next_fail_cnt %}
+                            <p class="text-center text-white">+0</p>
+                            {% else %}
+                            <p class="text-center text-white">-0</p>
+                            {% endif %}
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+                
+    </div>
+</div>
+{% if not not_integrated and not empty_history%}
+<div class="row">
+    <div class="col-lg-8">
+        <div class="row">
+            <div class="col-xl">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="header-title pb-3 mt-0">User details</h5>
+                        <p class="text-muted mb-4 font-13">This details refers to the comprehensive information associated with individual users within the Azure AD environment. This information includes a variety of attributes that contribute to the user's identity.
+                        </p>
+                        <div class="card-body boxscroll">
+                            <div class="table-responsive">
+                                <table id="datatable" class="table mb-0 table-centered">
+                                    <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Name</th>
+                                        <th>Surname</th>
+                                        <th>Email</th>
+                                        <th>User type</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    
+                                    {% for user in fetched_user_data_list %}
+                                    <tr>
+                                        <td>{{ user.index }}</td>
+                                        <td>{{ user.display_name }}</td>
+                                        <td>{{ user.surname }}</td>
+                                        <td>{{ user.mail }}</td>
+                                        <td>{{ user.user_type }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+                
+    </div>
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="header-title mt-0">Findings by Severity</h5>
+                <p class="text-muted mb-4 font-13">The doughnut chart below provides a comprehensive overview of the severity distribution in scan report.
+                </p>
+                <div id="donut-chart"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endif %}
+
+
+{% include "footer.html" %}

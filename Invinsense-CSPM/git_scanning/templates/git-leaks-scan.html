@@ -1,0 +1,127 @@
+{% load static %}
+{% include "header.html" %}
+
+<div class="page-content-wrapper ">
+
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-title-box">
+                    <div class="btn-group float-right">
+                        <ol class="breadcrumb hide-phone p-0 m-0">
+                            <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">invinsense</a></li>
+                            <li class="breadcrumb-item active">Git scan</li>
+                        </ol>
+                    </div>
+                    <h4 class="page-title">Git scan</h4>
+                </div>
+            </div>
+        </div>
+        <!-- end page title end breadcrumb -->
+
+    </div><!-- container -->
+
+</div> <!-- Page content Wrapper -->
+
+<!-- -------------------------------- start ------------------------------------ -->
+
+<div class="row d-flex justify-content-center">
+    <div class="col-lg-4">
+        <div class="card text-black">
+            <div class="card-body">
+                <h4 class="mt-0 header-title">Privet Repository Scanner</h4>
+                <div class="text-center">
+                    <img src="https://git-scm.com/images/logos/logomark-orange@2x.png" class="rounded" alt="...">
+                </div>
+                <form class="form-horizontal" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <div class="form-group row mt-3">
+                                <label class="col-md-3 my-1 control-label"></label>
+                                <div class="col-md-9">
+                                    <div class="form-check-inline my-1">
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" id="customRadio4" name="visibility"
+                                                   class="custom-control-input" value="public"
+                                                   onclick="toggleElement()" checked>
+                                            <label class="custom-control-label" for="customRadio4">Public</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-check-inline my-1">
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" id="customRadio5"
+                                                   class="custom-control-input" name="visibility" value="private"
+                                                   onclick="toggleElement()">
+                                            <label class="custom-control-label" for="customRadio5">Privet</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="input-group mt-2">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                </div>
+                                <input type="text" id="" name="username"
+                                       class="form-control" placeholder="Username" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="input-group mt-2">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-link"></i></span>
+                                </div>
+                                <input type="text" name="git_url"
+                                       class="form-control" placeholder="Repository URL" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12" id="elementToToggle" style="display: none;">
+                            <div class="input-group mt-2">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-user-lock"></i></span>
+                                </div>
+                                <input type="text" id="example-input1-group1" name="token"
+                                       class="form-control" placeholder="Access token">
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="input-group mt-3 ">
+                                <button type="submit" class="btn btn-purple waves-effect waves-light"><i
+                                        class="fas fa-shield-alt mr-2"></i>Scan
+                                </button>
+                            </div>
+                        </div>
+
+
+                    </div> <!--end row-->
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- End -->
+</div> <!-- content -->
+<script>
+    function toggleElement() {
+        var showRadio = document.getElementById('customRadio4');
+        var hideRadio = document.getElementById('customRadio5');
+        var elementToToggle = document.getElementById('elementToToggle');
+
+        if (customRadio5.checked) {
+            elementToToggle.style.display = 'block';
+        } else if (customRadio4.checked) {
+            elementToToggle.style.display = 'none';
+        }
+    }
+</script>
+
+{% include "footer.html" %}

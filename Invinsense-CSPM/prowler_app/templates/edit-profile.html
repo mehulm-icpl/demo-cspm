@@ -1,0 +1,89 @@
+{% load static %}
+{% include "header.html" %}
+
+                    <div class="page-content-wrapper ">
+
+                        <div class="container-fluid">
+
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="page-title-box">
+                                        <div class="btn-group float-right">
+                                            <ol class="breadcrumb hide-phone p-0 m-0">
+                                                <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Invinsense</a></li>
+                                                <li class="breadcrumb-item active">Edit Profile</li>
+                                            </ol>
+                                        </div>
+                                        <h4 class="page-title">Edit Profile</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end page title end breadcrumb -->
+
+<!-----------------------------------------  main content start frome hear ----------------------------------------------->
+
+                            <div class="row justify-content-center">
+                                <div class="card col-md-4" >
+                                <div class="container">
+                                    <h4 class="mt-4">Edit Profile</h4>
+                                    <form action="#" method="post" enctype="multipart/form-data">
+
+                                        <div class="form-group">
+                                            <label for="profilePic">Choose Profile Picture:</label>
+                                            <input type="file" class="form-control-file" id="profilePic" name="profilePic" accept="image/*" onchange="previewImage()">
+                                        </div>
+                                        <div class="form-group" style="max-width:50%;">
+
+                                                <img src="#" alt="user" id="profileImage" class="rounded-circle img-thumbnail mb-1">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="firstName">First Name:</label>
+                                            <input type="text" class="form-control" id="firstName" name="firstName">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="lastName">Last Name:</label>
+                                            <input type="text" class="form-control" id="lastName" name="lastName">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="username">Username:</label>
+                                            <input type="text" class="form-control" id="username" name="username">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email">Email:</label>
+                                            <input type="email" class="form-control" id="email" name="email">
+                                        </div>
+                                        <div class="form-group">
+                                            <a href="#" class="btn btn-primary">save changes</a>
+                                        </div>
+                                    </form>
+                                </div>
+                                </div>
+                             </div>
+
+<!-----------------------------------------  main content start frome hear ----------------------------------------------->
+                        </div><!-- container -->
+                    </div> <!-- Page content Wrapper -->
+                </div> <!-- content -->
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+  function previewImage() {
+    var fileInput = document.getElementById('profilePic');
+    var previewImage = document.getElementById('profileImage');
+
+    var file = fileInput.files[0];
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+      previewImage.src = e.target.result;
+      previewImage.classList.remove('d-none');
+    }
+
+    reader.readAsDataURL(file);
+  }
+</script>
+{% include "footer.html" %}
+

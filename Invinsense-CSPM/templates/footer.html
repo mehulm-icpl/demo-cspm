@@ -1,0 +1,469 @@
+{% load static %}
+<footer class="footer">
+    © 2024 invinsense by infopercept.
+</footer>
+
+</div>
+<!-- End Right content here -->
+
+</div>
+<!-- END wrapper -->
+<!-- COUSTOM javascreept-->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4"></script>
+
+<!-- Include the chartjs-plugin-datalabels library -->
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
+
+<script>
+    // Extract values from the JSON data
+    var values = {{ severities | safe }};
+
+    // Create a doughnut chart using Chart.js
+    var ctx = document.getElementById('donutChart').getContext('2d');
+    var myDonutChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Low', 'Medium', 'High', 'Critical'],
+            datasets: [{
+                data: values,
+                backgroundColor: ['#27AE60', '#3498DB', '#E67E22', '#C0392B'] //values.map(getRandomColor)
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutoutPercentage: 50,
+            plugins: {
+                datalabels: {
+                    color: 'white', // Label text color
+                    font: {
+                        weight: 'bold',
+                        size: '14'
+                    },
+                    formatter: function(value, context) {
+                        return value + ' (' + ((context.dataset.data[context.dataIndex] / context.dataset._meta[0].total) * 100).toFixed(1) + '%)';
+                    }
+                }
+            },
+            title: {
+                display: true,
+                fontSize: 18,
+                fontColor: 'darkblue'
+            },
+            tooltips: {
+                callbacks: {
+                    label: function(tooltipItem, data) {
+                        var label = data.labels[tooltipItem.index];
+                        var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                        return label + ': ' + value;
+                    }
+                }
+            },
+            legend: {
+                display: true,
+                position: 'bottom',
+                labels: {
+                    fontColor: 'black',
+                    fontSize: 12,
+                    boxWidth: 15,
+                    padding: 10
+                }
+            }
+        }
+    });
+
+    // Function to generate a random color
+    function getRandomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+</script>
+
+
+<script>
+    // Access the data passed from Django view
+
+    // Extract labels and values from the JSON data
+    var labels = {{ labels | safe }};
+    var values = {{ values | safe }};
+
+    // Define custom colors for each segment
+    var customColors = ['#FF5733', '#33FF57', '#5733FF', '#FF33EC', '#33ECFF', '#FFFF33'];
+
+    // Create a pie chart using Chart.js
+    var ctx = document.getElementById('pieChart').getContext('2d');
+    var myPieChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: labels,
+            datasets: [{
+                data: values,
+                backgroundColor: ['#C0392B', '#3498DB ', '#27AE60 '] //customeColors
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false, // Disable aspect ratio for custom sizing
+            title: {
+                display: true,
+                fontSize: 18,
+            },
+            plugins: {
+                datalabels: {
+                    color: 'white',
+                    textAlign: 'center',
+                    font: {
+                        weight: 'bold',
+                        size: '14'
+                    },
+
+                }
+            },
+            legend: {
+                display: true,
+                position: 'bottom',
+                labels: {
+                    fontColor: 'black', // Legend text color
+                    fontSize: 12,
+                    boxWidth: 15, // Width of the colored box next to the label
+                    padding: 10 // Padding between the colored box and the label
+                }
+            }
+        }
+    });
+</script>
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.20/c3.min.js"></script>
+<!--piachrt-->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var labels = {{ labels | safe }};
+      var values = {{ values | safe }};
+
+      // Combine labels and values into an array of arrays
+      var dataColumns = [];
+      for (var i = 0; i < labels.length; i++) {
+        dataColumns.push([labels[i], values[i]]);
+      }
+
+      c3.generate({
+        bindto: '#pie-chart',
+        data: {
+          columns: dataColumns,
+          type: 'pie'
+        },
+        color: {
+          pattern: ['#EC7063', "#5DADE2", '#58D68D', '#ec536c']
+        },
+        pie: {
+          label: {
+            show: true
+          }
+        }
+      });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var labels = {{ labels2 | safe }};
+      var values = {{ values2 | safe }};
+
+      // Combine labels and values into an array of arrays
+      var dataColumns = [];
+      for (var i = 0; i < labels.length; i++) {
+        dataColumns.push([labels[i], values[i]]);
+      }
+
+      c3.generate({
+        bindto: '#pie-chart1',
+        data: {
+          columns: dataColumns,
+          type: 'pie'
+        },
+        color: {
+          pattern: ['#EC7063', "#5DADE2", '#58D68D', '#ec536c']
+        },
+        pie: {
+          label: {
+            show: true
+          }
+        }
+      });
+    });
+</script>
+
+<!--donat chart-->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var values = {{ severities | safe }};
+
+      // Donut Chart
+      c3.generate({
+        bindto: '#donut-chart',
+        data: {
+          columns: [
+            ['Low', values[0]],
+            ['Medium', values[1]],
+            ['High', values[2]],
+            ['Critical', values[3]],
+          ],
+          type: 'donut',
+        },
+        donut: {
+
+          width: 50,
+          label: {
+            show: true
+          }
+        },
+        color: {
+          pattern: ['#58D68D', "#5DADE2", '#F8C471', '#EC7063']
+        }
+      });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var values = {{ severities1 | safe }};
+
+      // Donut Chart
+      c3.generate({
+        bindto: '#donut-chart1',
+        data: {
+          columns: [
+            ['Low', values[0]],
+            ['Medium', values[1]],
+            ['High', values[2]],
+            ['Critical', values[3]],
+          ],
+          type: 'donut',
+        },
+        donut: {
+
+          width: 30,
+          label: {
+            show: true
+          }
+        },
+        color: {
+          pattern: ['#58D68D', "#5DADE2", '#F8C471', '#EC7063']
+        }
+      });
+    });
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+
+    !function($) {
+        "use strict";
+
+        var VectorMap = function() {};
+        var region_var = {{ vector_map_dict | safe }}
+
+        VectorMap.prototype.init = function() {
+        
+        $('#world-map-markers').vectorMap({
+          map: 'world_mill_en',
+          scaleColors: ['#f75d8c', '#f75d8c'],
+          normalizeFunction: 'polynomial',
+          hoverOpacity: 0.7,
+          hoverColor: false,
+          regionStyle: {
+            initial: {
+              fill: '#605daf'
+            }
+          },
+          markerStyle: {
+            initial: {
+              r: 9,
+              'fill-opacity': 0.6,
+              'stroke': '#fff',
+              'stroke-width': 5,
+              'stroke-opacity': 0.2
+            },
+            hover: {
+              'stroke': '#fff',
+              'fill-opacity': 1,
+              'stroke-width': 1.5
+            }
+          },
+          backgroundColor: 'transparent',
+          markers: [
+                {% for region_key, region_data in vector_map_dict.items %}
+                    {
+                        latLng: [{{ region_data.coordinate.0 }}, {{ region_data.coordinate.1 }}],
+                        name: '{{ region_data.region }}',
+                        fillColor: '{% if region_data.Status == "FAIL" %}#FF0000{% else %}#00FF00{% endif %}'
+                    },
+                {% endfor %}
+          ],
+          onMarkerClick: function(event, index) {
+              // Handle marker click event if needed
+          }
+        });
+
+            
+      },
+        //init
+        $.VectorMap = new VectorMap, $.VectorMap.Constructor = VectorMap
+    }(window.jQuery),
+
+    //initializing 
+    function($) {
+        "use strict";
+        $.VectorMap.init()
+    }(window.jQuery);
+  });
+</script>
+
+<!-- azure cloud charts -->
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var values = {{ max_level | safe }};
+
+    // Donut Chart
+    c3.generate({
+      bindto: '#donut-chart',
+      data: {
+        columns: [
+          ['danger', values[0]],
+          ['warning', values[1]],
+          ['good', values[2]],
+        ],
+        type: 'donut',
+      },
+      donut: {
+
+        width: 30,
+        label: {
+          show: true
+        }
+      },
+      color: {
+        pattern: ['#EC7063', '#F8C471', '#58D68D', "#5DADE2"]
+      }
+    });
+  });
+</script>
+
+<!-- azure cloud charts closed -->
+
+<!--git scanig chart -->
+
+<!-- donat chart gtl-->
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var values = {{ two_d_array | safe }};
+
+      // Donut Chart
+      c3.generate({
+        bindto: '#donut-chart-gtl',
+        data: {
+          columns: values,
+          type: 'donut',
+        },
+        donut: {
+
+          width: 30,
+          label: {
+            show: true
+          }
+        },
+        color: {
+          pattern: ['#58D68D', "#5DADE2", '#F8C471', '#EC7063','#33FFBD','#FFBD33', '#FF5733','#C14242','#BFBF3F','#EBB1B1','#8EF02D','#8B8AC0','#AE93B7']
+        }
+      });
+    });
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+      // Select the elements with the specified classes
+      var elementsToHide = document.querySelectorAll('.plotlyjsicon');
+
+      // Loop through the selected elements and hide them
+      elementsToHide.forEach(function(element) {
+          element.style.display = 'none';
+      });
+  });
+</script>
+
+<!--donat chart-->
+
+<!-- jQuery  -->
+{% comment %} <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> {% endcomment %}
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<script src="{% static 'js/jquery.min.js'%}"></script>
+<script src="{% static 'js/popper.min.js'%}"></script>
+<script src="{% static 'js/bootstrap.min.js'%}"></script>
+<script src="{% static 'js/modernizr.min.js'%}"></script>
+<script src="{% static 'js/detect.js'%}"></script>
+<script src="{% static 'js/fastclick.js'%}"></script>
+<script src="{% static 'js/jquery.slimscroll.js'%}"></script>
+<script src="{% static 'js/jquery.blockUI.js'%}"></script>
+<script src="{% static 'js/waves.js'%}"></script>
+<script src="{% static 'js/jquery.nicescroll.js'%}"></script>
+<script src="{% static 'js/jquery.scrollTo.min.js'%}"></script>
+
+<!-- Required datatable js -->
+<script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'plugins/datatables/dataTables.bootstrap4.min.js' %}"></script>
+<!-- Buttons examples -->
+<script src="{% static 'plugins/datatables/dataTables.buttons.min.js' %}"></script>
+<script src="{% static 'plugins/datatables/buttons.bootstrap4.min.js' %}"></script>
+<script src="{% static 'plugins/datatables/jszip.min.js' %}"></script>
+<script src="{% static 'plugins/datatables/pdfmake.min.js' %}"></script>
+<script src="{% static 'plugins/datatables/vfs_fonts.js' %}"></script>
+<script src="{% static 'plugins/datatables/buttons.html5.min.js' %}"></script>
+<script src="{% static 'plugins/datatables/buttons.print.min.js' %}"></script>
+<script src="{% static 'plugins/datatables/buttons.colVis.min.js' %}"></script>
+<!-- Responsive examples -->
+<script src="{% static 'plugins/datatables/dataTables.responsive.min.js' %}"></script>
+<script src="{% static 'plugins/datatables/responsive.bootstrap4.min.js' %}"></script>
+
+<!-- vector map -->
+<script src="{% static 'plugins/jvectormap/jquery-jvectormap-2.0.2.min.js' %}"></script>
+<script src="{% static 'plugins/jvectormap/jquery-jvectormap-world-mill-en.js' %}"></script>
+
+{% comment %} <script src="{% static 'pages/jvectormap.init.js' %}"></script> {% endcomment %}
+
+<!-- Datatable init js -->
+
+<script src="{% static 'pages/datatables.init.js'%}"></script>
+<script src="{% static 'pages/demo-table.js'%}"></script>
+
+
+
+<!-- the coustem js-->
+{% comment %} <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> {% endcomment %}
+<!-- <script src="{% static 'jquery/table.js' %}"></script> -->
+
+<!-- App js -->
+<script src="{% static 'js/app.js'%}"></script>
+
+<!-- bootstratp js-->
+{% comment %} <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
+<script type="text/javascript"> 
+  $(document).ready(function(){
+    $('#datatable2').DataTable();
+    });
+</script> {% endcomment %}
+
+
+
+
+</body>
+</html>

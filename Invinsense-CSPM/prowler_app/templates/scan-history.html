@@ -1,0 +1,88 @@
+{% load static %}
+{% include "header.html" %}
+
+<div class="page-content-wrapper ">
+
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-title-box">
+                    <div class="btn-group float-right">
+                        <ol class="breadcrumb hide-phone p-0 m-0">
+                            <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">invinsense</a></li>
+                            <li class="breadcrumb-item active">Scan history</li>
+                        </ol>
+                    </div>
+                    <h4 class="page-title">Scan history</h4>
+                </div>
+            </div>
+        </div>
+        <!-- end page title end breadcrumb -->
+
+    </div><!-- container -->
+
+</div> <!-- Page content Wrapper -->
+
+<!-- --------------------------------------------------------------------------------------------------------------------------------------------- -->
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+               
+                <p class="text-muted mb-4 font-13">Scan history provides a historical view of previously scanned files.</p>
+
+                <table class="table mb-0" id="my-table">
+                    <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Account no</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th class="tabledit-toolbar-column"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in files_with_date_time %}
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            <tr id="{{item.number}}">
+                                <td><img src="{% static 'images/aws.svg' %}" alt="" class="rounded-circle thumb-sm mr-1"></td>
+                                <td class="tabledit-view-mode"><span class="tabledit-span">{{item.acc_id}}</span><input
+                                        class="tabledit-input form-control input-sm" type="text" name="col1" value="John"
+                                        style="display: none;" disabled=""></td>
+                                <td class="tabledit-view-mode"><span class="tabledit-span">{{item.date}}</span><input
+                                        class="tabledit-input form-control input-sm" type="text" name="col1" value="Doe"
+                                        style="display: none;" disabled=""></td>
+                                <td class="tabledit-view-mode"><span class="tabledit-span">{{item.time}}</span><input
+                                        class="tabledit-input form-control input-sm" type="text" name="col3"
+                                        value="john@example.com" style="display: none;" disabled=""></td>
+                                <td style="white-space: nowrap; width: 15%;">
+                                    <div class="tabledit-toolbar btn-toolbar" style="text-align: left;">
+                                        <div class="btn-group btn-group-sm" style="float: none;">
+                                            <input type="hidden" value="{{item.name}}" name="file-name" display="none">
+                                            <button type="submit"  class="btn btn-primary waves-effect waves-light">
+                                                <i class="mdi mdi-eye mr-2"></i>
+                                                view
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </form>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div>
+
+<!-------------------------------------------------------------------------------------------------------------------------------------------------->
+</div> <!-- content -->
+
+
+{% include "footer.html" %}

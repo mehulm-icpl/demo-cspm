@@ -1,0 +1,168 @@
+{% load static %}
+{% include "header.html" %}
+
+
+<div class="page-content-wrapper ">
+
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-title-box">
+                    <div class="btn-group float-right">
+                        <ol class="breadcrumb hide-phone p-0 m-0">
+                            <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">invinsense</a></li>
+                            <li class="breadcrumb-item active">Findings</li>
+                        </ol>
+                    </div>
+                    <h4 class="page-title">Findings</h4>
+                </div>
+            </div>
+        </div>
+        <!-- end page title end breadcrumb -->
+
+    </div><!-- container -->
+
+</div> <!-- Page content Wrapper -->
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="mt-0 header-title">Filterize your report</h4>
+                <p class="text-muted mb-4 font-13">
+                    Dynamic feature designed to enhance the user experience by providing customizable filtering options within the scan report.
+                </p>
+                <div class="row">
+                    <div class="input-group mt-2 d-flex justify-content-around">
+                        {% if services %}
+                        <div class="col-md-6">
+                            <h6 class="input-title mt-0">Select Service</h6>
+                            <select id="az-service-dropdown" class="select2 form-control mb-3 custom-select select2-hidden-accessible">
+                            {% if services %}
+                            <option value="">All</option>
+                            {% for service in services %}
+                            <option value="{{service}}">{{service}}</option>
+                            {% endfor %}
+                            {% endif %}
+                            </select>
+                        </div>
+                        {% endif %}
+                        {% if levels %}
+                        <div class="col-md-6">
+                            <h6 class="input-title mt-0">Select Level</h6>
+                            <select id="level-dropdown" class="select2 form-control mb-3 custom-select select2-hidden-accessible">
+                            {% if levels %}
+                            <option value="">All</option>
+                            {% for level in levels %}
+                            {% if level_filter == "good" and level == "good" %}
+                            <option value="{{level}}" selected>{{level}}</option>
+                            {% else %}
+                                {% if level_filter == "warning" and level == "warning" %}
+                                <option value="{{level}}" selected>{{level}}</option>
+                                {% else %}
+                                    {% if level_filter == "danger" and level == "danger" %}
+                                    <option value="{{level}}" selected>{{level}}</option>
+                                    {% else %}
+                                    <option value="{{level}}">{{level}}</option>
+                                    {% endif %}
+                                {% endif %}
+                            {% endif %}
+                            {% endfor %}
+                            {% endif %}
+                            </select>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline" style="border-collapse: collapse; border-spacing: 0px; width: 100%;" role="grid" aria-describedby="datatable-buttons_info">
+                        <thead>
+                        <tr>
+                            <th>Service</th>
+                            <th>Level</th>
+                            <th>Description</th>
+                            <th>Finding Key</th>
+                            <th>Flagged Item</th>
+                            <th>Checked Item</th>
+                            <th>Path</th>
+                            <th>Rationale</th>
+                            <th>URL</th>
+                            <th>Compliance</th>
+                            
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for entry in fetched_data_list %}
+                                <tr>
+                                    <td>{{ entry.service_name }}</td>
+                                    {% if entry.level == "warning" %}
+                                    <td><span class="badge badge-boxed  badge-warning">{{ entry.level }}</span></td>
+                                    {% elif entry.level == "danger" %}
+                                    <td><span class="badge badge-danger">{{ entry.level }}</span></td>
+                                    {% else %}
+                                    <td><span class="badge badge-boxed  badge-success">{{ entry.level }}</span></td>
+                                    {% endif %}
+                                    <td>{{ entry.description }}</td>
+                                    <td>{{ entry.finding }}</td>
+                                    <td>{{ entry.flagged_item }}</td>
+                                    <td>{{ entry.checked_item }}</td>
+                                    <td>{{ entry.path }}</td>
+                                    <td>{{ entry.rationale }}</td>
+                                    <td>
+                                        {% if entry.references %}
+                                        <div class="table-responsive">
+                                            <table class="table mb-0 table-centered">
+                                                <tbody>
+                                                    <tr>
+                                                        {% for url in entry.references %}
+                                                            <a href="{{ url }}" target="_blank" class="btn btn-outline-purple waves-effect waves-light mr-2" value="{{ url }}"><i class="fas fa-external-link-alt mr-2"></i>View Resource</a>
+                                                        {% endfor %}
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        {% else %}
+                                        None
+                                        {% endif %}
+                                        
+                                    </td>
+                                    <td>
+                                        {% if entry.compliance %}
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered mb-0 table-centered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Reference</th>
+                                                        <th>Version</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for data in entry.compliance %}
+                                                        <tr>
+                                                            <td>{{ data.name }}</td>
+                                                            <td>{{ data.reference }}</td>
+                                                            <td>{{ data.version }}</td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                </tbody>
+
+                                            </table>
+                                        </div>
+                                        {% else %}
+                                        None
+                                        {% endif %}
+                                    </td>                                   
+                                    
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include "footer.html" %}

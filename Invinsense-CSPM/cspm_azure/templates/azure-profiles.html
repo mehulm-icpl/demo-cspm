@@ -1,0 +1,60 @@
+{% load static %}
+{% include "header.html" %}
+
+<div class="page-content-wrapper ">
+
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-title-box">
+                    <div class="btn-group float-right">
+                        <ol class="breadcrumb hide-phone p-0 m-0">
+                            <li class="breadcrumb-item"><a href="{% url 'azure-dashboard' %}">invinsense</a></li>
+                            <li class="breadcrumb-item active">cloud accounts</li>
+                        </ol>
+                    </div>
+                    <h4 class="page-title">cloud accounts</h4>
+                </div>
+            </div>
+        </div>
+        <!-- end page title end breadcrumb -->
+
+    </div><!-- container -->
+
+</div> <!-- Page content Wrapper -->
+
+<div class="row">
+    {% for data in user_data %}
+    
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="d-sm-flex align-self-center">
+                        <img src="{% static 'images/azure.svg' %}" alt=""
+                            class="d-flex rounded align-self-start mr-2 mt-2" alt="Generic placeholder image" height="64">
+                        <div class="media-body ml-4 align-self-center">
+                            <p class="mb-0">{{data.subscriptionName}}</p>
+                            <span class="font-12 text-black">{{data.tenantID}}</span>
+                            <input type="hidden" name="tenent-id" value="{{data.tenantID}}">
+                            <div class="media-body mt-2">
+                                <button type="submit" class="btn btn-outline-success waves-effect waves-light"
+                                    ><i class="mdi mdi-security mr-2"></i>Scan your account</button>
+                                
+                            </div>
+                            
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    {% endfor %}
+    
+
+</div>
+
+{% include "footer.html" %}

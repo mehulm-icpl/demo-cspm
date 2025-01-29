@@ -1,0 +1,178 @@
+{% load static %}
+{% include "header.html" %}
+
+<div class="page-content-wrapper ">
+
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-title-box">
+                    <div class="btn-group float-right">
+                        <ol class="breadcrumb hide-phone p-0 m-0">
+                            <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">invinsense</a></li>
+                            <li class="breadcrumb-item active">cloud configuration</li>
+                        </ol>
+                    </div>
+                    <h4 class="page-title">cloud configuration</h4>
+                </div>
+            </div>
+        </div>
+        <!-- end page title end breadcrumb -->
+
+    </div><!-- container -->
+
+</div> <!-- Page content Wrapper -->
+
+<!----------------------------------------------------------------------------------------------------------------------------------------------- -->
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="col d-flex justify-content-center">
+                <div class="card-body" style="max-width: 60%">
+                    <center>
+                        <img
+                                src="{% static 'images/aws-svgrepo-com.svg' %}"
+                                alt="aws-svgrepo-com"
+                                width="100"
+                                height="100"
+                                srcset=""
+                        />
+                    </center>
+                    <h4 class="mt-0 header-title">Configar your Aws account</h4>
+                    <p class="text-muted mb-4 font-13">
+                        Parsley is a javascript form validation library. It helps you
+                        provide your users with feedback on their form submission before
+                        sending it to your server.
+                    </p>
+
+                    <form class="" action="" method="POST">
+                        {% csrf_token %}
+
+                        <div class="form-group">
+                            <a href="https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=buildkite&amp;templateURL=https://s3.amazonaws.com/my-great-stack.json" target="_blank" rel="noopener noreferrer">
+                                <img alt="Launch Stack"
+                                     src="https://cdn.rawgit.com/buildkite/cloudformation-launch-stack-button-svg/master/launch-stack.svg"/>
+                            </a>
+                        </div>
+
+                        <input type="text" style="display: none" name="username" id="username-id">
+                        <div class="checkbox my-2">
+                            <div class="custom-control custom-checkbox">
+                                <input
+                                        type="checkbox"
+                                        class="custom-control-input"
+                                        id="customCheck2"
+                                        data-parsley-multiple="groups"
+                                        data-parsley-mincheck="2"
+                                />
+                                <label class="custom-control-label" for="customCheck2"
+                                >Are you Invinsense User</label
+                                >
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>AWS User Name</label>
+                            <input
+                                    type="text"
+                                    autocomplete="off"
+                                    class="form-control"
+                                    name="aws-user-name"
+                                    required=""
+                                    placeholder=" - - - - - - - - - - - "
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label>AWS Access key</label>
+                            <input
+                                    type="text"
+                                    autocomplete="off"
+                                    class="form-control"
+
+                                    name="acsess-key"
+                                    required=""
+                                    placeholder=" - - - - - - - - - - - "
+                            />
+                        </div>
+
+                        <div class="form-group">
+                            <label>AWS Secret Key</label>
+                            <input
+                                    type="text"
+                                    autocomplete="off"
+                                    class="form-control"
+                                    name="secter-key"
+                                    required=""
+                                    placeholder=" - - - - - - - - - - - "
+                            />
+                        </div>
+
+                        <div class="btn-group mo-mb-2">
+                            <div>
+                                <select
+                                        name="region-dropdown"
+                                        id="region-dropdown"
+                                        class="btn btn-outline-primary waves-effect waves-light"
+                                >
+                                    <option value="ap-south-1">ap-south-1</option>
+                                    <option value="ap-northeast-1">ap-northeast-1</option>
+                                    <option value="ap-northeast-2">ap-northeast-2</option>
+                                    <option value="ap-northeast-3">ap-northeast-3</option>
+                                    <option value="ap-southeast-1">ap-southeast-1</option>
+                                    <option value="ap-southeast-2">ap-southeast-2</option>
+
+                                    <option value="ca-central-1">ca-central-1</option>
+
+                                    <option value="eu-central-1">eu-central-1</option>
+                                    <option value="eu-north-1">eu-north-1</option>
+                                    <option value="eu-west-1">eu-west-1</option>
+                                    <option value="eu-west-2">eu-west-2</option>
+                                    <option value="eu-west-3">eu-west-3</option>
+
+                                    <option value="sa-east-1">sa-east-1</option>
+
+                                    <option value="us-east-1">us-east-1</option>
+                                    <option value="us-east-2">us-east-2</option>
+                                    <option value="us-west-1">us-west-1</option>
+                                    <option value="us-west-2">us-west-2</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group"></div>
+
+                        <div class="form-group mb-0">
+                            <div>
+                                <button
+                                        type="submit"
+                                        class="btn btn-primary waves-effect waves-light"
+                                >
+                                    Configar
+                                </button>
+                                <button
+                                        type="reset"
+                                        class="btn btn-secondary waves-effect m-l-5"
+                                >
+                                    Reset
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <script>
+                var storedData = localStorage.getItem('username');
+                document.getElementById('username-id').value = storedData;
+            </script>
+
+        </div>
+    </div>
+</div>
+
+<!-------------------------------------------------------------------------------------------------------------------------------------------------->
+</div> <!-- content -->
+
+
+{% include "footer.html" %}

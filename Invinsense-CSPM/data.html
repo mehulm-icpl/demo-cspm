@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        .header {
+            width: 100%;
+            min-height: 800px;
+            background-color: rgb(220, 255, 196);
+            text-align: center;
+        }
+
+        .images {
+            padding-top: 400px;
+        }
+
+        .gray {
+            color: gray;
+        }
+
+        .title {
+            padding-top: 200px;
+            text-align: center;
+        }
+
+        .row {
+            width: 100%;
+            display: -webkit-box;
+            /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+            display: -ms-flexbox;
+            /* TWEENER - IE 10 */
+            display: -webkit-flex;
+            /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
+            display: flex;
+            /* NEW, Spec - Firefox, Chrome, Opera */
+            -webkit-box-pack: justify;
+            -webkit-justify-content: space-between;
+            -ms-flex-pack: justify;
+            justify-content: space-between;
+            padding-top: 250px;
+        }
+
+        .box {
+            background-color: rgb(220, 255, 196);
+            padding: 50px;
+        }
+
+        .paragraph {
+            font-size: medium;
+            padding-top: 750px;
+            padding-bottom: 750px;
+        }
+
+        .navbar {
+            padding-top: 0px;
+            width: 100%;
+            display: -webkit-box;
+            /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+            display: -ms-flexbox;
+            /* TWEENER - IE 10 */
+            display: -webkit-flex;
+            /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
+            display: flex;
+            /* NEW, Spec - Firefox, Chrome, Opera */
+            -webkit-box-pack: justify;
+            -webkit-justify-content: space-between;
+            -ms-flex-pack: justify;
+            justify-content: space-between;
+        }
+
+        .litellogo {
+            padding-top: 25px;
+        }
+
+        .bar-text {
+            font-style: bold;
+        }
+
+        .table {
+            padding-top: 20px;
+            justify-content: center;
+            -webkit-justify-content: center;
+
+        }
+
+        .tabale-data {
+            max-width: 100%;
+            background-color: rgb(220, 255, 196);
+            border: solid 2px grey;
+        }
+
+        .table-heading {
+            margin: 50px;
+            padding: 50px;
+            background-color: white;
+        }
+
+        .table-data {
+            background-color: rgb(220, 255, 196);
+            margin: 20px;
+            padding-top: 20px;
+            text-align: center;
+            padding-bottom: 20px;
+            border: 2px solid white;
+        }
+
+        .main-heding {
+            padding-top: 120px;
+            padding-bottom: 20px;
+        }
+
+        .card {
+            background-color: pink;
+            border-left: 10px solid rgb(248, 0, 41);
+            padding: 10px 20px;
+            margin-top: 20px;
+        }
+
+        .cardheader {
+            padding-top: 0px;
+            width: 100%;
+            display: -webkit-box;
+            /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+            display: -ms-flexbox;
+            /* TWEENER - IE 10 */
+            display: -webkit-flex;
+            /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
+            display: flex;
+            /* NEW, Spec - Firefox, Chrome, Opera */
+            -webkit-box-pack: justify;
+            -webkit-justify-content: space-between;
+            -ms-flex-pack: justify;
+            justify-content: space-between;
+            text-align: center;
+            font-size: 25px;
+        }
+
+        .sp1 {
+            background-color: rgb(247, 88, 115);
+            padding: 8px 12px;
+            color: #fff;
+        }
+
+        .sp1 svg {
+            padding: 0 5px;
+            color: aliceblue;
+        }
+
+        .main p {
+            padding: 10px 0;
+        }
+
+        .info {
+            width: 20%;
+            height: 100%;
+            float: left;
+        }
+
+        .info2 {
+            width: 80%;
+            height: 100%;
+            float: left;
+        }
+
+        .footer {
+            padding-top: 0px;
+            width: 100%;
+            display: -webkit-box;
+            /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+            display: -ms-flexbox;
+            /* TWEENER - IE 10 */
+            display: -webkit-flex;
+            /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
+            display: flex;
+            /* NEW, Spec - Firefox, Chrome, Opera */
+            -webkit-box-pack: justify;
+            -webkit-justify-content: space-between;
+            -ms-flex-pack: justify;
+            justify-content: space-between;
+        }
+
+        .footer p>a {
+
+            text-decoration: none;
+
+        }
+
+        .lastpage {
+            margin: 0px;
+            padding: 0px;
+            max-width: 100%;
+            height: auto;
+        }
+        .lastdata{
+            margin: 0px;
+            padding: 0px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <img src="https://www.infopercept.com/static/assetsnew/images/invinsense/invinsense-pages/Invinsense_logo.svg"
+            class="images" width="300" alt="Sample Logo">
+        <h4>colud sequritly assement</h4>
+        <div clss="gray">
+            <h3 class="color:gray;">cloud platform : AWS</h3>
+        </div>
+    </div>
+
+    <div class="title">
+        <h1>CIS Amazon Web Services Foundations Benchmark v1.5</h1>
+    </div>
+
+    <div class="row">
+        <!-- box 1 -->
+        <div class="box">
+            <h3>Account Assessed on:</h3>
+            <h5>Fri, 08 Dec 2023 07:00:00 UTC</h5>
+        </div>
+
+        <!-- box 2 -->
+
+        <div class="box">
+            <h3>Account Assessed on:</h3>
+            <h5>Fri, 08 Dec 2023 07:00:00 UTC</h5>
+        </div>
+    </div>
+
+    <div class="paragraph">
+        <p><b>Disclaimer</b>:
+            Cloudlytics does not provide legal or compliance advice. Customers are solely responsible
+            for determining and complying with their obligations under CIS Amazon Web Services
+            Foundations Benchmark v1.5, and all other applicable laws, rules and
+            regulations.Customers should consult with qualified legal counsel or consultants, as needed,
+            to ensure that their use of Cloudlytics complies with CIS Amazon Web Services
+            Foundations Benchmark v1.5, and other applicable laws, rules, and regulations. The
+            information contained in this report is not exhaustive and must be reviewed, evaluated,
+            assessed, and approved by the customer in connection with the customer's particular
+            security features, tools, and configurations.</p>
+    </div>
+
+    <div class="navbar">
+        <img src="https://www.infopercept.com/static/assetsnew/images/invinsense/invinsense-pages/Invinsense_logo.svg"
+            class="litellogo" width="100" alt="Sample Logo">
+        <p>CIS Amazon Web Services Foundations Benchmark v1.5 <br>
+            466903585855</p>
+    </div>
+
+    <hr>
+
+    <div class="bargraph">
+        <img src="https://img.freepik.com/free-vector/illustration-data-analysis-graph_53876-17905.jpg?w=1060&t=st=1707815901~exp=1707816501~hmac=f10de88a3ad340aabf24cb0f3d9f7915a50ef8cec00fc70e768162f50e2d3a3e"
+            alt="" srcset="">
+    </div>
+    <div class="bar-text">
+        <p>
+            This is an assessment report for an assessment on 2023-12-11 of AWS Cloud Account with
+            Account number : 466903585855.
+            The following Rules/Controls were assessed against the Compliance Standard CIS Amazon
+            Web Services Foundations Benchmark v1.5. A total of 62 findings were created, with the
+            following distribution by severity.
+        </p>
+    </div>
+
+    <!-- ----------------the table fild ------------------------- -->
+
+    <div class="table">
+        <h1>Compliance Score</h1>
+
+        <table class="tabale-data">
+            <tr>
+                <th class="table-heading">section</th>
+                <th class="table-heading">Faild</th>
+                <th class="table-heading">info</th>
+                <th class="table-heading">passed</th>
+                <th class="table-heading">not chaked</th>
+                <th class="table-heading">Suppressed</th>
+            </tr>
+            <tr>
+                <td class="table-data">Iam</td>
+                <td class="table-data">0</td>
+                <td class="table-data">0</td>
+                <td class="table-data">1</td>
+                <td class="table-data">5</td>
+                <td class="table-data">0</td>
+            </tr>
+            <tr>
+                <td class="table-data">Logiging</td>
+                <td class="table-data">0</td>
+                <td class="table-data">0</td>
+                <td class="table-data">1</td>
+                <td class="table-data">5</td>
+                <td class="table-data">0</td>
+            </tr>
+            <tr>
+                <td class="table-data">Monitoring</td>
+                <td class="table-data">0</td>
+                <td class="table-data">0</td>
+                <td class="table-data">1</td>
+                <td class="table-data">5</td>
+                <td class="table-data">0</td>
+            </tr>
+            <tr>
+                <td class="table-data">Networking</td>
+                <td class="table-data">0</td>
+                <td class="table-data">0</td>
+                <td class="table-data">1</td>
+                <td class="table-data">5</td>
+                <td class="table-data">0</td>
+            </tr>
+            <tr>
+                <td class="table-data">Storage</td>
+                <td class="table-data">0</td>
+                <td class="table-data">0</td>
+                <td class="table-data">1</td>
+                <td class="table-data">5</td>
+                <td class="table-data">0</td>
+            </tr>
+        </table>
+
+    </div>
+    <!-------------------------- main fild --------------------- -->
+
+    <div class="main-heding">
+        <h1>Detailed Findings</h1>
+    </div>
+
+    <!-- -----------------the main fild ---------------------------->
+
+    <div class="card">
+        <div class="cardheader">
+            <p class="sp1"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-exclamation-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                    <path
+                        d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z" />
+                </svg>Failed</p>
+            <p class="sp2">Checks: 10/10</p>
+        </div>
+
+        <div class="main">
+            <div class="info">
+                <p>Tags:</p>
+                <p>Control:</p>
+                <p>Account name:</p>
+                <p>Group name:</p>
+                <p>Reason</p>
+            </div>
+            <div class="info2">
+                <p>1.12</p>
+                <p>Ensure credentials unused for 45 days or greater are disabled</p>
+                <p>infopercept_cloudlytics</p>
+                <p>IAM</p>
+                <p>
+                    Access Key 1 not used since last 45 days for entity
+                    (dev-user-application)
+                </p>
+
+                <p>Access Key 1 not used since last 45 days for entity (sandipt)</p>
+
+                <p>
+                    Password not used since last 45 days for entity
+                    (tanmayd@infopercept.com)
+                </p>
+
+                <p>Password not used since last 45 days for entity (shyamt)</p>
+
+                <p>Password not used since last 45 days for entity (meet)</p>
+
+                <p>Password not used sin last 45 days for entity (kishan)</p>
+
+                <p>Password not used since last 45 days for entity (jaydeep)</p>
+
+                <p>Password not used since last 45 days for entity (Deepak)</p>
+
+                <p>Password not used since last 45 days for entity (sunny)</p>
+
+                <p>Password not used since last 45 days for entity (hemang)</p>
+            </div>
+        </div>
+        <hr>
+        <div class="footer">
+            <a href="https://www.infopercept.com/">More details</a>
+            <p>Severity:<a href="">Medium</a></p>
+
+        </div>
+    </div>
+
+    <!-- -----------------the main fild ---------------------------->
+
+    <div class="card">
+        <div class="cardheader">
+            <p class="sp1"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-exclamation-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                    <path
+                        d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z" />
+                </svg>Failed</p>
+            <p class="sp2">Checks: 10/10</p>
+        </div>
+
+        <div class="main">
+            <div class="info">
+                <p>Tags:</p>
+                <p>Control:</p>
+                <p>Account name:</p>
+                <p>Group name:</p>
+                <p>Reason</p>
+            </div>
+            <div class="info2">
+                <p>1.12</p>
+                <p>Ensure credentials unused for 45 days or greater are disabled</p>
+                <p>infopercept_cloudlytics</p>
+                <p>IAM</p>
+                <p>
+                    Access Key 1 not used since last 45 days for entity
+                    (dev-user-application)
+                </p>
+
+                <p>Access Key 1 not used since last 45 days for entity (sandipt)</p>
+
+                <p>
+                    Password not used since last 45 days for entity
+                    (tanmayd@infopercept.com)
+                </p>
+
+                <p>Password not used since last 45 days for entity (shyamt)</p>
+
+                <p>Password not used since last 45 days for entity (meet)</p>
+
+                <p>Password not used sin last 45 days for entity (kishan)</p>
+
+                <p>Password not used since last 45 days for entity (jaydeep)</p>
+
+                <p>Password not used since last 45 days for entity (Deepak)</p>
+
+                <p>Password not used since last 45 days for entity (sunny)</p>
+
+                <p>Password not used since last 45 days for entity (hemang)</p>
+            </div>
+        </div>
+        <hr>
+        <div class="footer">
+            <a href="">More details</a>
+            <p>Severity:<a href="https://www.infopercept.com/">Medium</a></p>
+
+        </div>
+    </div>
+
+    <!-- -----------------the main fild ---------------------------->
+
+    <div class="card">
+        <div class="cardheader">
+            <p class="sp1"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-exclamation-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                    <path
+                        d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z" />
+                </svg>Failed</p>
+            <p class="sp2">Checks: 10/10</p>
+        </div>
+
+        <div class="main">
+            <div class="info">
+                <p>Tags:</p>
+                <p>Control:</p>
+                <p>Account name:</p>
+                <p>Group name:</p>
+                <p>Reason</p>
+            </div>
+            <div class="info2">
+                <p>1.12</p>
+                <p>Ensure credentials unused for 45 days or greater are disabled</p>
+                <p>infopercept_cloudlytics</p>
+                <p>IAM</p>
+                <p>
+                    Access Key 1 not used since last 45 days for entity
+                    (dev-user-application)
+                </p>
+
+                <p>Access Key 1 not used since last 45 days for entity (sandipt)</p>
+
+                <p>
+                    Password not used since last 45 days for entity
+                    (tanmayd@infopercept.com)
+                </p>
+
+                <p>Password not used since last 45 days for entity (shyamt)</p>
+
+                <p>Password not used since last 45 days for entity (meet)</p>
+
+                <p>Password not used sin last 45 days for entity (kishan)</p>
+
+                <p>Password not used since last 45 days for entity (jaydeep)</p>
+
+                <p>Password not used since last 45 days for entity (Deepak)</p>
+
+                <p>Password not used since last 45 days for entity (sunny)</p>
+
+                <p>Password not used since last 45 days for entity (hemang)</p>
+            </div>
+        </div>
+        <hr>
+        <div class="footer">
+            <a href="">More details</a>
+            <p>Severity:<a href="https://www.infopercept.com/">Medium</a></p>
+
+        </div>
+    </div>
+
+    <!-- -----------------the main fild ---------------------------->
+
+    <div class="card">
+        <div class="cardheader">
+            <p class="sp1"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-exclamation-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                    <path
+                        d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z" />
+                </svg>Failed</p>
+            <p class="sp2">Checks: 10/10</p>
+        </div>
+
+        <div class="main">
+            <div class="info">
+                <p>Tags:</p>
+                <p>Control:</p>
+                <p>Account name:</p>
+                <p>Group name:</p>
+                <p>Reason</p>
+            </div>
+            <div class="info2">
+                <p>1.12</p>
+                <p>Ensure credentials unused for 45 days or greater are disabled</p>
+                <p>infopercept_cloudlytics</p>
+                <p>IAM</p>
+                <p>
+                    Access Key 1 not used since last 45 days for entity
+                    (dev-user-application)
+                </p>
+
+                <p>Access Key 1 not used since last 45 days for entity (sandipt)</p>
+
+                <p>
+                    Password not used since last 45 days for entity
+                    (tanmayd@infopercept.com)
+                </p>
+
+                <p>Password not used since last 45 days for entity (shyamt)</p>
+
+                <p>Password not used since last 45 days for entity (meet)</p>
+
+                <p>Password not used sin last 45 days for entity (kishan)</p>
+
+                <p>Password not used since last 45 days for entity (jaydeep)</p>
+
+                <p>Password not used since last 45 days for entity (Deepak)</p>
+
+                <p>Password not used since last 45 days for entity (sunny)</p>
+
+                <p>Password not used since last 45 days for entity (hemang)</p>
+            </div>
+        </div>
+        <hr>
+        <div class="footer">
+            <a href="">More details</a>
+            <p>Severity:<a href="https://www.infopercept.com/">Medium</a></p>
+
+        </div>
+    </div>
+
+
+
+</div>
+
+</body>
+
+</html>

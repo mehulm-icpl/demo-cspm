@@ -1,0 +1,198 @@
+{% load static %}
+{% include "header.html" %}
+
+<div class="page-content-wrapper ">
+
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-title-box">
+                    <div class="btn-group float-right">
+                        <ol class="breadcrumb hide-phone p-0 m-0">
+                            <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">invinsense</a></li>
+                            <li class="breadcrumb-item active">Git scan</li>
+                        </ol>
+                    </div>
+                    <h4 class="page-title">Git scan</h4>
+                </div>
+            </div>
+        </div>
+        <!-- end page title end breadcrumb -->
+
+    </div><!-- container -->
+
+</div> <!-- Page content Wrapper -->
+
+<!-- -------------------------------- start ------------------------------------ -->
+
+
+<div class="row">
+    <div class="col-lg-9">
+        <div class="row">
+            <div class="col-lg-3">
+                <a href="{% url 'repo' %}">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="icon-contain">
+                                <div class="row">
+                                    <div class="col-2 align-self-center">
+                                        <i class="fab fa-git text-gradient-success"></i>
+                                    </div>
+                                    <div class="col-10 text-right">
+                                        <h6 class="mt-0 mb-1">Scan Your<br>Reposatory</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="{% url 'git_pdf' %}" target="_blank">
+                    <div class="card ">
+                        <div class="card-body">
+                            <div class="icon-contain">
+                                <div class="row">
+                                    <div class="col-2 align-self-center">
+                                        <i class="fas fa-file-pdf text-gradient-primary"></i>
+                                    </div>
+                                    <div class="col-10 text-right">
+                                        <h6 class="mt-0 mb-1">Get Pdf<br>Report</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="{% url 'repo_scan_history' %}">
+                    <div class="card">
+                        <div class="card-body justify-content-center">
+                            <div class="icon-contain">
+                                <div class="row">
+                                    <div class="col-2 align-self-center">
+                                        <i class="far fa-file text-gradient-danger"></i>
+                                    </div>
+                                    <div class="col-10 text-right">
+                                        <h6 class="mt-0 mb-1">Past<br>Scanning</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-lg-9">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="mt-0 header-title">Findings by Secrets</h5>
+                        <p class="text-muted mb-4 font-13">Expose secret types</p>
+
+                        <div id="plotly_chart">
+                            {{ plotly_chart|safe }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="mt-0 header-title">Findins by Commits</h5>
+                <p class="text-muted mb-4 font-13">Percentage of Commits of code by Author</p>
+                <div id="donut-chart-gtl"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <h4 class="mt-0 header-title">Fertilize your Report</h4>
+                <p class="text-muted mb-4 font-13">
+                </p>
+                <!--                <div class="row">-->
+                <!--                    <div class="input-group mt-2 d-flex justify-content-around">-->
+                <!--                        {% if unique_names %}-->
+                <!--                        <div class="col-md-6">-->
+                <!--                            <h6 class="input-title mt-0">Select Author</h6>-->
+                <!--                            <select id="gtl-filter-author"-->
+                <!--                                    class="select2 form-control mb-3 custom-select select2-hidden-accessible">-->
+                <!--                                {% if unique_names %}-->
+                <!--                                <option value="">All</option>-->
+                <!--                                {% for name in unique_names %}-->
+                <!--                                <option value="{{service}}">{{name}}</option>-->
+                <!--                                {% endfor %}-->
+                <!--                                {% endif %}-->
+                <!--                            </select>-->
+                <!--                            {% endif %}-->
+
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+                <div class="table-responsive">
+                    <table id="datatable-buttons"
+                           class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline"
+                           style="border-collapse: collapse; border-spacing: 0px; width: 100%;" role="grid"
+                           aria-describedby="datatable-buttons_info">
+                        <thead>
+                        <tr>
+                            <th>File</th>
+                            <th>RuleID</th>
+                            <th>Match</th>
+                            <th>Secret</th>
+                            <th>Entropy</th>
+                            <th>StartLine</th>
+                            <th>EndLine</th>
+                            <th>StartColumn</th>
+                            <th>EndColumn</th>
+                            <th>Commit</th>
+                            <th>Author</th>
+                            <th>Email</th>
+                            <th>Date</th>
+                            <th>Message</th>
+                            <th>Description</th>
+                            <!--                        <th>Fingerprint</th>-->
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        {% for item in dataofgitlik %}
+                        <tr>
+                            <td>{{item.File}}</td>
+                            <td>{{item.RuleID}}</td>
+                            <td>{{item.Match}}</td>
+                            <td>{{item.Secret}}</td>
+                            <td>{{item.Entropy}}</td>
+                            <td>{{item.StartLine}}</td>
+                            <td>{{item.EndLine}}</td>
+                            <td>{{item.StartColumn}}</td>
+                            <td>{{item.EndColumn}}</td>
+                            <td>{{item.Commit}}</td>
+                            <td>{{item.Author}}</td>
+                            <td>{{item.Email}}</td>
+                            <td>{{item.Date}}</td>
+                            <td>{{item.Message}}</td>
+                            <td>{{item.Description}}</td>
+
+                            <!--                        <td>{{item.Fingerprint}}</td>-->
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div> <!-- -------------------end col----------------- -->
+        </div>
+    </div>
+
+
+    <!-- End -->
+</div> <!-- content -->
+
+
+{% include "footer.html" %}
